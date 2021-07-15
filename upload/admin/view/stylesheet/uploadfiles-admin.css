@@ -1,0 +1,11 @@
+.group-files {
+  width: 100%;
+}
+.group-files ul {
+  list-style-type: none;
+}
+.group-files ul li {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}

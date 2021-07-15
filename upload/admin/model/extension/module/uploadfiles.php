@@ -1,6 +1,6 @@
 <?php
 
-class ModelExtensionModuleIllyilly extends Model
+class ModelExtensionModuleUploadfiles extends Model
 {
 
     public function maybeCreateDBTableForUploadFiles()
@@ -19,15 +19,23 @@ class ModelExtensionModuleIllyilly extends Model
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "upload_files` ORDER BY `id` DESC");
         return $query->rows;
     }
-
+    public function addUploadFiles($file_url, $file_name)
+    {
+        $date = date('Y-m-d H:i:s');
+        $query = $this->db->query("INSERT INTO `" . DB_PREFIX . "upload_files` SET `file` = '$file_url', `name` = '$file_name', `date_created`='$date'");
+    }
     public function getModuleById($module_id)
     {
         $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "upload_files WHERE id = '" . (int) $module_id . "'");
 
         if ($query->row) {
-            return json_decode($query->row, true);
+            return json_decode($query->rows);
         } else {
             return array();
         }
+    }
+    public function deleteFileById($id)
+    {
+        $query = $this->db->query("DELETE  FROM " . DB_PREFIX . "upload_files WHERE id = '" . (int) $id . "'");
     }
 }
